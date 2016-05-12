@@ -1,6 +1,10 @@
 class TopicsController < ApplicationController
   before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show]
+  if current_user.mod?
+    before_action :mod_user, except: [:index, :show, :new, :destroy]
+  else
+    before_action :authorize_user, except: [:index, :show]
+  end
 
   def index
     @topics = Topic.all
@@ -60,6 +64,13 @@ class TopicsController < ApplicationController
 
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
+  end
+
+  def mod_user
+    unless current_user.mod?
+      flash[:alert] = 'You must be a moderator to do that.'
+      redirect_to topics_path
+    end
   end
 
   def authorize_user
