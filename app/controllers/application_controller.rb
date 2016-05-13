@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_path
     end
   end
+
+  def mod?
+    current_user.mod?
+  end
+
+  def admin?
+    current_user.admin?
+  end
 end

@@ -1,10 +1,7 @@
 class PostsController < ApplicationController
   before_action :require_sign_in, except: :show
-  if current_user.mod?
-    before_action :mod_user, except: [:show, :new, :create, :edit]
-  else
-    before_action :authorize_user, except: [:show, :new, :create]
-  end
+  before_action :mod_user, except: [:show, :new, :create, :edit, :update], unless: :admin?
+  before_action :authorize_user, except: [:show, :new, :create], unless: :mod?
 
   def show
     @post = Post.find(params[:id])
