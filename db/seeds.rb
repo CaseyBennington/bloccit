@@ -31,14 +31,31 @@ end
 posts = Post.all
 
 # Create Comments
-
+# # posts
 100.times do
   Comment.create!(
     user: users.sample,
-    post: posts.sample,
+    commentable_id: posts.sample.id,
+    commentable_type: 'Post',
+    # post: posts.sample,
     body: RandomData.random_paragraph
   )
 end
+
+# topics
+100.times do
+  Comment.create!(
+    user: users.sample,
+    commentable_id: topics.sample.id,
+    commentable_type: 'Topic',
+    # topic: topics.sample,
+    body: RandomData.random_paragraph
+  )
+end
+# comments = Comment.all
+# comments.each do |comment|
+#   topics.sample.comment = comment
+# end
 
 # Create an admin user
 admin = User.create!(
