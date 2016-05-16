@@ -8,7 +8,7 @@ module RandomData
   def self.random_email
     "#{random_word}@#{random_word}.#{random_word}"
   end
-  
+
   def self.random_paragraph
     sentences = []
     rand(4..6).times do
@@ -32,5 +32,9 @@ module RandomData
     letters = ('a'..'z').to_a
     letters.shuffle!
     letters[0, rand(3..8)].join
+  end
+
+  def self.random_value
+    [-1, 1].sample
   end
 end
