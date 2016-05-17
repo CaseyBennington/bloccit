@@ -19,15 +19,13 @@
   </div>
 </div>
 
+<h2>Favorites</h2>
+<% @user.favorites.each do |favorite| %>
+  <%= render partial: 'posts/gravatar', locals: { post: user_favorite_object(favorite) } %>
+<% end %>
+
 <h2>Posts</h2>
-<% if @user.posts? %>
-  <%= render @user.posts %>
-<% else %>
-  <%= "#{user.name} has not submitted any posts yet." %>
-<% end %>
+<%= render(@user.posts) || "#{@user.name} has not submitted any posts yet." %>
+
 <h2>Comments</h2>
-<% if @user.comments? %>
-  <%= render @user.comments %>
-<% else %>
-  <%= "#{user.name} has not submitted any comments yet." %>
-<% end %>
+<%= render(partial: "comments/comment", collection: @user.comments) || "#{@user.name} has not submitted any comments yet."%>
